@@ -2,7 +2,7 @@
  * Event listener for HTTP server "error" event.
  */
 
-function onError(error) {
+function onError(error, port) {
   if (error.syscall !== "listen") {
     throw error;
   }
@@ -14,9 +14,11 @@ function onError(error) {
     case "EACCES":
       console.error(bind + " requires elevated privileges");
       process.exit(1);
+    /* falls through */
     case "EADDRINUSE":
       console.error(bind + " is already in use");
       process.exit(1);
+    /* falls through */
     default:
       throw error;
   }
