@@ -1,11 +1,11 @@
-import expressSwaggerGen from 'express-swagger-generator';
+import swaggerJsdoc from "swagger-jsdoc";
+import swaggerUi from "swagger-ui-express";
 
-import app from '../../app.js';
-import options from './options.js'
+import options from "./options.js";
 
-const configureSwagger = () => {
-    const expressSwagger = expressSwaggerGen(app);
-    expressSwagger(options);
+const configureSwagger = (app) => {
+  const specs = swaggerJsdoc(options);
+  app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(specs));
 };
 
 export default configureSwagger;

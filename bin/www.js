@@ -12,7 +12,7 @@ import onListening from "./onListening.js";
 /**
  * Configuring Swagger.
  */
-configureSwagger();
+configureSwagger(app);
 
 /**
  * Configuring server options.
@@ -33,5 +33,5 @@ const server = createServer(app);
  */
 
 server.listen(port);
-onError(server);
+onError(server, port);
 onListening(server);

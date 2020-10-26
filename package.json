@@ -4,16 +4,19 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "start": "node ./bin/www",
+    "start": "nodemon ./bin/www",
     "start:debug": "DEBUG=libqualityapi:* npm start"
   },
   "dependencies": {
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "express": "~4.16.1",
-    "morgan": "~1.9.1"
+    "jshint": "^2.12.0",
+    "morgan": "~1.9.1",
+    "swagger-jsdoc": "^4.3.1",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
-    "express-swagger-generator": "^1.1.17"
+    "nodemon": "^2.0.6"
   }
 }
