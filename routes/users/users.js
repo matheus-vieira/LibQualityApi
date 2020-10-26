@@ -10,6 +10,8 @@ const router = Router();
  * @returns {Error}  default - Unexpected error
  * @swagger
  * /users:
+ *    tags:
+ *    - "user"
  *    get:
  *      description: This should return all users
  *      responses:

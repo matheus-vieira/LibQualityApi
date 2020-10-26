@@ -1,27 +1,3 @@
-// const options = {
-//   swaggerDefinition: {
-//     info: {
-//       description: "LibQuality API",
-//       title: "Swagger",
-//       version: "1.0.0",
-//     },
-//     host: "localhost:3000",
-//     basePath: "/api/v1",
-//     produces: ["application/json", "application/xml"],
-//     schemes: ["http", "https"],
-//     securityDefinitions: {
-//       JWT: {
-//         type: "apiKey",
-//         in: "header",
-//         name: "Authorization",
-//         description: "",
-//       },
-//     },
-//   },
-//   basedir: process.env.PWD, //app absolute path
-//   files: ["./routes/**/*.js"], //Path to the API handle folder
-// };
-
 const options = {
   definition: {
     openapi: "3.0.0",
@@ -60,7 +36,7 @@ const options = {
     basedir: process.env.PWD, //app absolute path
     files: ["./routes/**/*.js"], //Path to the API handle folder
   },
-  apis: ["./routes/*.js"],
+  apis: ["./routes/**/*.js"],
 };
 
 export default options;

@@ -5,6 +5,8 @@ const router = Router();
 /**
  * @swagger
  * /project-info/{project-name}:
+ *    tags:
+ *    - "project"
  *    get:
  *      description: If a correct repository name is passed it should return some metrics
  *      produces:
