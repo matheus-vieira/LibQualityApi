@@ -1,15 +1,14 @@
 #!/usr/bin/env node
 
-//import "../config/env/index.js";
 
 import { createServer } from "http";
 
 import app from "../app.js";
 import configureSwagger from "../config/swagger/index.js";
-
 import port from "./configurePort.js";
 import onError from "./onError.js";
 import onListening from "./onListening.js";
+import onTerminus from "./terminus.js";
 
 /**
  * Configuring Swagger.
@@ -37,3 +36,4 @@ const server = createServer(app);
 server.listen(port);
 onError(server, port);
 onListening(server);
+onTerminus(server);

@@ -8,6 +8,8 @@
     "start:debug": "DEBUG=libqualityapi:* npm start"
   },
   "dependencies": {
+    "@godaddy/terminus": "^4.4.1",
+    "compression": "^1.7.4",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",

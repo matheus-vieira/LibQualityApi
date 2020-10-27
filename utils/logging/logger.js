@@ -3,8 +3,6 @@ import DailyRotateFile from "winston-daily-rotate-file";
 
 const LOG_LEVEL = process.env.APP_LOG_LEVEL || "info";
 
-console.log("process.env.APP_LOG_LEVEL", process.env.APP_LOG_LEVEL);
-
 const transportList = [
   new DailyRotateFile({
     filename: `./.logs/${process.env.APP_ENV}/application-%DATE%.log`,
@@ -22,7 +20,7 @@ const transportList = [
   }),
 ];
 
-if (process.env.APP_ENV === "dev") transportList.push(new winston.transports.Console());
+if (process.env.APP_ENV !== "production") transportList.push(new winston.transports.Console());
 
 const logger = winston.createLogger({
   level: LOG_LEVEL,

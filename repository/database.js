@@ -42,8 +42,7 @@ export default class Database {
 
   async isConnected() {
     try {
-      await this.database.authenticate();
-      logger.info("Connection has been established successfully.");
+      return await this.database.authenticate();
     } catch (error) {
       logger.error("Unable to connect to the database:", error);
     }
