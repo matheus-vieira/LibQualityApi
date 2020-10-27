@@ -1,5 +1,7 @@
 #!/usr/bin/env node
 
+//import "../config/env/index.js";
+
 import { createServer } from "http";
 
 import app from "../app.js";

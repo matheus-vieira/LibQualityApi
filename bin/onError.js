@@ -1,3 +1,6 @@
+
+import logger from "../utils/logging/logger.js";
+
 /**
  * Event listener for HTTP server "error" event.
  */
@@ -12,11 +15,11 @@ function onError(error, port) {
   // handle specific listen errors with friendly messages
   switch (error.code) {
     case "EACCES":
-      console.error(bind + " requires elevated privileges");
+      logger.error(bind + " requires elevated privileges");
       process.exit(1);
     /* falls through */
     case "EADDRINUSE":
-      console.error(bind + " is already in use");
+      logger.error(bind + " is already in use");
       process.exit(1);
     /* falls through */
     default:

@@ -1,3 +1,4 @@
+import logger from "../utils/logging/logger.js";
 /**
  * Event listener for HTTP server "listening" event.
  */
@@ -6,7 +7,7 @@ const setOnListening = (server) => {
     const addr = server.address();
     const bind =
       typeof addr === "string" ? "pipe " + addr : "port " + addr.port;
-    console.log("Listening on ", bind);
+      logger.info("Binded on => " + bind);
   });
 };
 

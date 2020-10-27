@@ -1,0 +1,62 @@
+import Sequelize from "sequelize";
+
+import logger from "../utils/logging/logger.js";
+
+const database = process.env.DB_DATABASE;
+const username = process.env.DB_USERNAME;
+const password = process.env.DB_PASSWORD;
+const hostname = process.env.DB_HOST;
+const dialect = process.env.DB_DIALECT;
+
+logger.debug("database", database);
+logger.debug("username", username);
+logger.debug("password", password);
+logger.debug("hostname", hostname);
+logger.debug("dialect", dialect);
+
+export default class Database {
+  constructor() {
+    this.model = null;
+    this.createDb();
+    this.defineModel();
+  }
+
+  defineModel() {
+    throw new Error("You have to implement the method defineModel!");
+  }
+
+  createDb() {
+    this.database = new Sequelize(
+      database,
+      username,
+      password,
+      {
+        host: hostname,
+        dialect: dialect,
+        storage: process.env.DB_STORAGE_SQLITE,
+        logging: logger.debug.bind(logger),
+      }
+    );
+    logger.info("database created successfully at " + process.env.DB_STORAGE_SQLITE);
+  }
+
+  async isConnected() {
+    try {
+      await this.database.authenticate();
+      logger.info("Connection has been established successfully.");
+    } catch (error) {
+      logger.error("Unable to connect to the database:", error);
+    }
+  }
+
+  async create(model) {
+    try {
+      return await this.database.transaction((t) =>
+        this.model.create(model, { transaction: t })
+      );
+    } catch (err) {
+      logger.error(err);
+      throw err;
+    }
+  }
+}
