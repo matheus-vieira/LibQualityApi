@@ -1,5 +1,5 @@
 import terminus from "@godaddy/terminus";
-import repo from "../repository/user/repository.js";
+import UserRepository from "../repository/user/repository.js";
 
 function onSignal() {
   console.log("server is starting cleanup");
@@ -9,8 +9,8 @@ function onSignal() {
 async function onHealthCheck() {
   // checks if the system is healthy, like the db connection is live
   // resolves, if health, rejects if not
-  
   try {
+    const repo = new UserRepository();
     return await repo.isConnected();
   } catch (error) {
     logger.error("error on db: " + error);
