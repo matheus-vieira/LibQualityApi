@@ -29,12 +29,14 @@ const router = express.Router();
  *          type: "string"
  *          example: angular
  *      responses:
- *          "200":
- *            description: "successful operation"
- *          schema:
- *            $ref: "#/definitions/project-metrics"
- *          "404":
- *            description: "Project not found"
+ *         "200":
+ *           description: "successful operation"
+ *           schema:
+ *             type: "array"
+ *             items:
+ *               $ref: "#/definitions/project-issue"
+ *         "404":
+ *           description: "Project not found"
  */
 router.get("/:owner/:repo/issues", async (req, res) => {
   logger.debug("checking validation");

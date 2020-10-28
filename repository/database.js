@@ -48,11 +48,18 @@ export default class Database {
     }
   }
 
-  async create(model) {
+  async save(resource) {
     try {
-      return await this.database.transaction((t) =>
-        this.model.create(model, { transaction: t })
-      );
+      return await this.model.create(resource);
+    } catch (err) {
+      logger.error(err);
+      throw err;
+    }
+  }
+
+  async saveList(list) {
+    try {
+      return await this.model.bulkCreate(list, { validate: true });
     } catch (err) {
       logger.error(err);
       throw err;

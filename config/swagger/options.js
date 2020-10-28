@@ -33,10 +33,10 @@ const options = {
         description: "",
       },
     },
-    basedir: process.env.PWD, //app absolute path
-    files: ["./routes/**/*.js"], //Path to the API handle folder
+    basedir: process.env.PWD,
+    files: ["./routes/**/*.js", "./repository/**/*.js"],
   },
-  apis: ["./routes/**/*.js"],
+  apis: ["./routes/**/*.js", "./repository/**/*.js"],
 };
 
 export default options;

@@ -6,6 +6,4 @@ const octokit = new rest.Octokit({
   userAgent: "lib_quality_api v1.2.3"
 });
 
-console.log("ocktokit configured");
-
 export default octokit;
