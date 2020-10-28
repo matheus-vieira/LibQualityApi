@@ -1,6 +1,6 @@
-import logger from "../../utils/logging/logger.js";
-import Database from "../database.js";
-import model from "./model.js";
+import logger from '../../utils/logging/logger.js';
+import Database from '../database.js';
+import model from './model.js';
 
 export default class UserRepository extends Database {
   defineModel() {

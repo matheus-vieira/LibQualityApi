@@ -1,4 +1,4 @@
-import Messages from "./errorMessage.js";
+import Messages from './errorMessage.js';
 const notFoundError = (key) => {
   let e = new Error(Messages[key].error.message);
   e.statusCode = 404;

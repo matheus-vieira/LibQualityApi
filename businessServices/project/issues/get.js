@@ -1,7 +1,7 @@
-import BusinessService from "../../businessService.js";
-import IssuesRepository from "../../../repository/project/issue/repository.js";
-import mapper from "../../../repository/project/issue/modelMapper.js";
-import github from "../../../services/github.js";
+import BusinessService from '../../businessService.js';
+import IssuesRepository from '../../../repository/project/issue/repository.js';
+import mapper from '../../../repository/project/issue/modelMapper.js';
+import github from '../../../services/github.js';
 
 class ReadBusinessService extends BusinessService {
   constructor() {
@@ -11,13 +11,13 @@ class ReadBusinessService extends BusinessService {
   }
 
   async loadIssues(owner, repo) {
-    console.log("getting paginated issues");
+    console.log('getting paginated issues');
     try {
       const repoIssues = await github.paginate(github.issues.listForRepo, {
         owner: owner,
         repo: repo,
       });
-      console.log("getted paginated issues");
+      console.log('getted paginated issues');
 
       const mappedIssues = repoIssues.map(mapper);
 

@@ -1,0 +1,12 @@
+{
+    "sqltools.connections": [
+        {
+            "previewLimit": 100,
+            "driver": "SQLite",
+            "database": "\\\\wsl\\Ubuntu-20.04\\home\\mvieira\\repos\\github\\matheus-vieira\\LibQualityApi\\files\\database\\db_lib_quality.sqlite",
+            "name": "LibQualityApi",
+            "group": "LibQuality"
+        }
+    ],
+    "sqltools.useNodeRuntime": true
+}

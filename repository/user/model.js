@@ -1,10 +1,10 @@
-import Sequelize from "sequelize";
-import logger from "../../utils/logging/logger.js";
+import Sequelize from 'sequelize';
+import logger from '../../utils/logging/logger.js';
 
 export default (sequelize) => {
   try {
     return sequelize.define(
-      "User",
+      'User',
       {
         id: {
           allowNull: false,

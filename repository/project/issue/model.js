@@ -1,5 +1,5 @@
-import Sequelize from "sequelize";
-import logger from "../../../utils/logging/logger.js";
+import Sequelize from 'sequelize';
+import logger from '../../../utils/logging/logger.js';
 
 /**
  * @swagger/**
@@ -51,22 +51,21 @@ import logger from "../../../utils/logging/logger.js";
 export default (sequelize) => {
   try {
     return sequelize.define(
-      "issues",
+      'issues',
       {
-        guid: {
-          allowNull: false,
-          autoIncrement: true,
+        uuid: {
+          type: Sequelize.DataTypes.UUID,
+          defaultValue: Sequelize.DataTypes.UUIDV1,
           primaryKey: true,
-          type: Sequelize.DataTypes.INTEGER,
         },
-        "issue_id": Sequelize.DataTypes.INTEGER,
-        "url": Sequelize.DataTypes.STRING,
-        "html_url": Sequelize.DataTypes.STRING,
-        "repository_url": Sequelize.DataTypes.STRING,
-        "issue_created_at": Sequelize.DataTypes.DATE,
-        "issue_updated_at": Sequelize.DataTypes.DATE,
-        "issue_closed_at": Sequelize.DataTypes.DATE,
-        "state": Sequelize.DataTypes.STRING
+        issue_id: Sequelize.DataTypes.INTEGER,
+        url: Sequelize.DataTypes.STRING,
+        html_url: Sequelize.DataTypes.STRING,
+        repository_url: Sequelize.DataTypes.STRING,
+        issue_created_at: Sequelize.DataTypes.DATE,
+        issue_updated_at: Sequelize.DataTypes.DATE,
+        issue_closed_at: Sequelize.DataTypes.DATE,
+        state: Sequelize.DataTypes.STRING,
       },
       {
         paranoid: true,

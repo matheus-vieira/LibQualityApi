@@ -1,14 +1,14 @@
 #!/usr/bin/env node
 
 
-import { createServer } from "http";
+import { createServer } from 'http';
 
-import app from "../app.js";
-import configureSwagger from "../config/swagger/index.js";
-import port from "./configurePort.js";
-import onError from "./onError.js";
-import onListening from "./onListening.js";
-import onTerminus from "./terminus.js";
+import app from '../app.js';
+import configureSwagger from '../config/swagger/index.js';
+import port from './configurePort.js';
+import onError from './onError.js';
+import onListening from './onListening.js';
+import onTerminus from './terminus.js';
 
 /**
  * Configuring Swagger.
@@ -22,7 +22,7 @@ configureSwagger(app);
 /**
  * Get port from environment and store in Express.
  */
-app.set("port", port);
+app.set('port', port);
 
 /**
  * Create HTTP server.

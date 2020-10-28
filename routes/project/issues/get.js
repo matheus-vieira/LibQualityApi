@@ -1,8 +1,8 @@
-import express from "express";
-import expressValidator from "express-validator";
-import getController from "../../../controllers/project/issues/get.js";
-import logger from "../../../utils/logging/logger.js";
-import Messages from "../../../utils/errorMessage.js";
+import express from 'express';
+import expressValidator from 'express-validator';
+import getController from '../../../controllers/project/issues/get.js';
+import logger from '../../../utils/logging/logger.js';
+import Messages from '../../../utils/errorMessage.js';
 
 const router = express.Router();
 
@@ -38,20 +38,20 @@ const router = express.Router();
  *         "404":
  *           description: "Project not found"
  */
-router.get("/:owner/:repo/issues", async (req, res) => {
-  logger.debug("checking validation");
+router.get('/:owner/:repo/issues', async (req, res) => {
+  logger.debug('checking validation');
   const result = expressValidator.validationResult(req);
 
   if (!result.isEmpty()) {
     for (const e of result.errors) error(JSON.stringify(e));
-    return res.status(400).json(Messages["400"]);
+    return res.status(400).json(Messages['400']);
   }
 
   try {
     const data = await getController.get(req.params);
 
     if (data) return res.status(200).json({ data: data });
-    throw new Error(Messages["404"]);
+    throw new Error(Messages['404']);
   } catch (err) {
     logger.error(err);
     const statusCode = err.statusCode || 500;

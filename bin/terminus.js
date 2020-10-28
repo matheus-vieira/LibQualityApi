@@ -1,8 +1,8 @@
-import terminus from "@godaddy/terminus";
-import UserRepository from "../repository/user/repository.js";
+import terminus from '@godaddy/terminus';
+import UserRepository from '../repository/user/repository.js';
 
 function onSignal() {
-  console.log("server is starting cleanup");
+  console.log('server is starting cleanup');
   // start cleanup of resource, like databases or file descriptors
 }
 
@@ -13,14 +13,14 @@ async function onHealthCheck() {
     const repo = new UserRepository();
     return await repo.isConnected();
   } catch (error) {
-    logger.error("error on db: " + error);
+    logger.error('error on db: ' + error);
   }
 }
 
 export default (server) => {
   terminus.createTerminus(server, {
-    signal: "SIGINT",
-    healthChecks: { "/healthcheck": onHealthCheck },
+    signal: 'SIGINT',
+    healthChecks: { '/healthcheck': onHealthCheck },
     onSignal,
   });
 };
