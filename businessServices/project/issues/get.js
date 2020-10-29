@@ -2,6 +2,7 @@ import BusinessService from '../../businessService.js';
 import IssuesRepository from '../../../repository/project/issue/repository.js';
 import mapper from '../../../repository/project/issue/modelMapper.js';
 import github from '../../../services/github.js';
+import logger from '../../../utils/logging/logger.js';
 
 class ReadBusinessService extends BusinessService {
   constructor() {
@@ -11,24 +12,41 @@ class ReadBusinessService extends BusinessService {
   }
 
   async loadIssues(owner, repo) {
-    console.log('getting paginated issues');
     try {
-      const repoIssues = await github.paginate(github.issues.listForRepo, {
-        owner: owner,
-        repo: repo,
-      });
-      console.log('getted paginated issues');
+      await this.requestIssues(owner, repo);
 
-      const mappedIssues = repoIssues.map(mapper);
-
-      return await this.repository.saveList(mappedIssues);
+      return await this.repository.getBy(owner, repo);
     } catch (err) {
-      console.error(err);
+      logger.error(err);
+      throw err;
     }
   }
 
-  transform(issue) {
-    return mapper(issue);
+  async requestIssues(owner, repo) {
+    try {
+      const opt = {
+        owner: owner,
+        repo: repo,
+      };
+
+      const lastUpdateDate = await this.repository.getLastUpdateDate(owner, repo);
+
+      if (lastUpdateDate) opt.since = lastUpdateDate;
+
+      logger.info('requesting issues ' + JSON.stringify(opt));
+
+      const repoIssues = await github.paginate(github.issues.listForRepo, opt);
+
+      if (repoIssues && repoIssues.length > 0)
+        await this.repository.saveList(repoIssues.map(mapper));
+    } catch (err) {
+      err.message = 'Github connection error' + err.message;
+      console.error(err);
+      logger.error(err);
+      throw err;
+    } finally {
+      logger.info('requested issues');
+    }
   }
 }
 

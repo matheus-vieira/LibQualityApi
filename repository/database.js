@@ -26,17 +26,12 @@ export default class Database {
   }
 
   createDb() {
-    this.database = new Sequelize(
-      database,
-      username,
-      password,
-      {
-        host: hostname,
-        dialect: dialect,
-        storage: process.env.DB_STORAGE_SQLITE,
-        logging: logger.debug.bind(logger),
-      }
-    );
+    this.database = new Sequelize(database, username, password, {
+      host: hostname,
+      dialect: dialect,
+      storage: process.env.DB_STORAGE_SQLITE,
+      logging: logger.debug.bind(logger),
+    });
     logger.info('database created successfully at ' + process.env.DB_STORAGE_SQLITE);
   }
 
@@ -50,7 +45,8 @@ export default class Database {
 
   async save(resource) {
     try {
-      return await this.model.create(resource);
+      const saved = await this.model.upsert(resource);
+      return saved.dataValues;
     } catch (err) {
       logger.error(err);
       throw err;
@@ -59,7 +55,19 @@ export default class Database {
 
   async saveList(list) {
     try {
-      return await this.model.bulkCreate(list, { validate: true });
+      const savedList = await this.model.bulkCreate(list, {
+        updateOnDuplicate: [
+          'url',
+          'html_url',
+          'repository_url',
+          'issue_created_at',
+          'issue_updated_at',
+          'issue_closed_at',
+          'state',
+        ],
+        validate: true
+      });
+      return savedList.map((i) => i.dataValues);
     } catch (err) {
       logger.error(err);
       throw err;
