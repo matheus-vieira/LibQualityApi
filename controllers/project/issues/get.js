@@ -5,20 +5,27 @@ import BusinessService from '../../../businessServices/project/issues/get.js';
 const calcAge = (issues) => {
   const sumAge = issues.reduce(reduceAge, 0);
   const avg = Math.ceil(sumAge / issues.length);
+
   const sumStd = issues.reduce((acc, i) => reduceStd(acc, i, avg), 0);
 
   const avgAge = sumStd / issues.length;
-  const stdAge = Math.ceil(Math.sqrt(avgAge));
+  const std = Math.ceil(Math.sqrt(avgAge));
 
-  return { avgAge, stdAge };
+  return { avg, std };
 };
 const reduceStd = (acc, i, avg) => acc + Math.pow(i.age - avg, 2);
 
+const _MS_PER_DAY = 1000 * 60 * 60 * 24;
+
 const reduceAge = (acc, issue) => {
-  const creationDate = new Date(issue.createdDate);
-  const now = new Date(issue.closeDate || null);
-  const diffTime = now.getTime() - creationDate.getTime();
-  issue.age = Math.ceil(diffTime / (1000 * 3600 * 24));
+  const created = new Date(issue.issue_created_at);
+  const closed = issue.issue_closed_at ? new Date(issue.issue_closed_at) : new Date();
+
+  const diffTime = Math.abs(closed - created);
+  const diffDays = Math.floor(diffTime / _MS_PER_DAY);
+
+  issue.age = diffDays;
+
   return acc + issue.age;
 };
 
@@ -31,13 +38,13 @@ class GetController {
     try {
       const issues = await this.businessService.loadIssues(owner, repo);
 
-      const { avgAge, stdAge } = calcAge(issues);
+      const { avg, std } = calcAge(issues);
 
       return {
-        repoName: `${owner}/${repo}`,
+        repo: `${owner}/${repo}`,
         issues: issues.length,
-        avgAge,
-        stdAge,
+        avg,
+        std,
       };
     } catch (err) {
       logger.error(err);
