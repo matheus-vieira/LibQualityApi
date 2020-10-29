@@ -53,12 +53,10 @@ export default (sequelize) => {
     return sequelize.define(
       'issues',
       {
-        uuid: {
-          type: Sequelize.DataTypes.UUID,
-          defaultValue: Sequelize.DataTypes.UUIDV1,
+        id: {
+          type: Sequelize.DataTypes.INTEGER,
           primaryKey: true,
         },
-        issue_id: Sequelize.DataTypes.INTEGER,
         url: Sequelize.DataTypes.STRING,
         html_url: Sequelize.DataTypes.STRING,
         repository_url: Sequelize.DataTypes.STRING,
