@@ -8,9 +8,9 @@ export default class UserRepository extends Database {
     this.database.sync();
   }
 
-  async create(user) {
+  async getByEmail(email) {
     try {
-      return await this.create(user);
+      return await this.getBy({ where: { email } });
     } catch (err) {
       logger.error(err);
       throw err;

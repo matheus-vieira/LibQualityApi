@@ -45,7 +45,7 @@ export default class Database {
 
   async save(resource) {
     try {
-      const saved = await this.model.upsert(resource);
+      const saved = await this.model.create(resource);
       return saved.dataValues;
     } catch (err) {
       logger.error(err);
@@ -68,6 +68,24 @@ export default class Database {
         validate: true
       });
       return savedList.map((i) => i.dataValues);
+    } catch (err) {
+      logger.error(err);
+      throw err;
+    }
+  }
+
+  async getBy(where) {
+    try {
+      return await this.model.findAll(where);
+    } catch (err) {
+      logger.error(err);
+      throw err;
+    }
+  }
+
+  async getAllBy(where) {
+    try {
+      return await this.model.findAll(where);
     } catch (err) {
       logger.error(err);
       throw err;

@@ -43,7 +43,7 @@ router.get('/:owner/:repo/issues', async (req, res) => {
   const result = expressValidator.validationResult(req);
 
   if (!result.isEmpty()) {
-    for (const e of result.errors) error(JSON.stringify(e));
+    for (const e of result.errors) logger.error(JSON.stringify(e));
     return res.status(400).json(Messages['400']);
   }
 

@@ -6,20 +6,16 @@ export default (sequelize) => {
     return sequelize.define(
       'User',
       {
-        id: {
-          allowNull: false,
-          autoIncrement: true,
-          primaryKey: true,
-          type: Sequelize.INTEGER,
-        },
-        firstName: Sequelize.DataTypes.STRING,
-        lastName: Sequelize.DataTypes.STRING,
-        age: Sequelize.DataTypes.INTEGER,
+        firstname: Sequelize.DataTypes.STRING,
+        lastname: Sequelize.DataTypes.STRING,
+        email: Sequelize.DataTypes.STRING,
+        password: Sequelize.DataTypes.STRING,
+        role: Sequelize.DataTypes.STRING,
       },
       {
         paranoid: true,
         timestamps: true,
-      }
+      },
     );
   } catch (err) {
     logger.error(err);
