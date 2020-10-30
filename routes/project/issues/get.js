@@ -8,10 +8,13 @@ const router = express.Router();
 
 /**
  * @swagger
+ * tags:
+ *   name: Projects Issues
+ *   description: Repo issue management.
+ * 
  * /project/{owner}/{repo}/issues:
- *    tags:
- *    - "project"
  *    get:
+ *      tags: ["Projects Issues"]
  *      description: If a correct repository name is passed it should return some metrics
  *      produces:
  *        - application/json

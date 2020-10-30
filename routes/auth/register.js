@@ -9,11 +9,11 @@ const router = express.Router();
 
 /**
  * @swagger
- * /register:
- *    tags:
- *    - "auth"
+ * /api/v1/auth/register:
  *    post:
- *      description: Register an user
+ *      tags: [Auth]
+ *      Summary: Register an user
+ *      description: Creates an user in the database with encrypted password
  *      produces:
  *        - application/json
  *      parameters:
